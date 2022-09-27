@@ -5,19 +5,33 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.3</version>
+        <version>2.3.12.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <groupId>com.aiz</groupId>
     <artifactId>gulimall-product</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>gulimall-product</name>
     <description>gulimall-product</description>
+
     <properties>
         <java.version>1.8</java.version>
-        <spring-cloud.version>2021.0.4</spring-cloud.version>
+        <spring-cloud.version>Hoxton.SR12</spring-cloud.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <spring-cloud-alibaba.version>2.2.9.RELEASE</spring-cloud-alibaba.version>
     </properties>
+
+
     <dependencies>
+        <dependency>
+            <groupId>com.aiz.gulimall</groupId>
+            <artifactId>gulimall-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
