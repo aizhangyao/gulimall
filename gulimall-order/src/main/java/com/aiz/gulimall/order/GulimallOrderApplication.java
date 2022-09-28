@@ -22,9 +22,9 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  *          (2).高速MyBatis-Plus，sql映射文件位置
  *
  */
-@EnableDiscoveryClient
 @MapperScan("com.aiz.gulimall.order.dao")
 @SpringBootApplication
+@EnableDiscoveryClient
 public class GulimallOrderApplication {
 
     public static void main(String[] args) {
