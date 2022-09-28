@@ -12,9 +12,9 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  *      <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
  *   </dependency>
  * 2.创建一个bootstrap.properties
- *  spring.application.name=zheli-coupon
+ *  spring.application.name=gulimall-coupon
  *  spring.cloud.nacos.config.server-addr=127.0.0.1:8848
- * 3.需要给配置中心默认添加一个叫 数据集(Data ID) zheli-coupon.properties。默认规则：应用名.properties。
+ * 3.需要给配置中心默认添加一个叫 数据集(Data ID) gulimall-coupon.properties。默认规则：应用名.properties。
  * 4.给 应用名.properties添加任何配置
  * 5.动态获取配置
  * @RefreshScope ：动态获取并刷新配置。
