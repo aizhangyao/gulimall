@@ -1,19 +1,24 @@
 package com.aiz.gulimall.product;
 
+import com.aiz.gulimall.product.service.CategoryService;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.model.PutObjectRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.File;
+import java.util.Arrays;
 
 /**
  * 1.引入oss-starter
  * 2.配置key,endpoint相关信息
  * 3.使用OSSClient 进行相关操作
  */
+@Slf4j
 @SpringBootTest
 class GulimallProductApplicationTests {
 
@@ -21,6 +26,15 @@ class GulimallProductApplicationTests {
     private String accessKeyId;
     @Value("${spring.cloud.alicloud.secret-key}")
     private String accessKeySecret;
+
+    @Autowired
+    private CategoryService categoryService;
+
+    @Test
+    public void testFindPath(){
+        Long[] catelogPath = categoryService.findCatelogPath(225L);
+        log.info("完整路径：{}", Arrays.asList(catelogPath));
+    }
 
     @Test
     void contextLoads() {
