@@ -6,6 +6,7 @@ import java.util.Map;
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
 import com.aiz.gulimall.product.vo.AttrVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +33,14 @@ public class AttrController {
     @Autowired
     private AttrService attrService;
 
+    //product/attr/base/list/{catelogId}
+    @GetMapping("/base/list/{catelogId}")
+    public R baseAttrList(@RequestParam Map<String, Object> params,
+                          @PathVariable("catelogId") Long catelogId){
+        PageUtils page = attrService.queryBaseAttrPage(params,catelogId);
+        return R.ok().put("page", page);
+    }
+
     /**
      * 列表
      */
@@ -47,12 +56,13 @@ public class AttrController {
     /**
      * 信息
      */
+    //product/attr/info/{catelogId}
     @RequestMapping("/info/{attrId}")
     //@RequiresPermissions("product:attr:info")
     public R info(@PathVariable("attrId") Long attrId){
-		AttrEntity attr = attrService.getById(attrId);
-
-        return R.ok().put("attr", attr);
+//		AttrEntity attr = attrService.getById(attrId);
+        AttrVo attrVo = attrService.getAttrInfo(attrId);
+        return R.ok().put("attr", attrVo);
     }
 
     /**
