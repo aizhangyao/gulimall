@@ -17,3 +17,6 @@ mybatis-plus:
       id-type: auto
 server:
   port: 11001
+  logging:
+    level:
+      com.aiz.gulimall: debug

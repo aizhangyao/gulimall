@@ -1,6 +1,8 @@
 #spring:
 #  application:
 #    name: gulimall-product
+#    jackson:
+#      date-format: yyyy-MM-dd HH:mm:ss
 #  datasource:
 #    username: root
 #    password: root

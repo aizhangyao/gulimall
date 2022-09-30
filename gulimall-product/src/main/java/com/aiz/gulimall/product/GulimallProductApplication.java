@@ -3,6 +3,7 @@ package com.aiz.gulimall.product;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 
 /**
@@ -52,6 +53,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  *  (二).编写一个自定义的校验器 ConstraintValidator
  *  (三).关联自定义的校验器和自定义的校验注解
  */
+@EnableFeignClients(basePackages = "com.aiz.gulimall.product.feign")
 @SpringBootApplication
 @EnableDiscoveryClient
 public class GulimallProductApplication {
