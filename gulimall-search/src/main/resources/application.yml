@@ -1,0 +1,21 @@
+server:
+  port: 12000
+
+spring:
+  application:
+    name: gulimall-search
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: redis
+
+logging:
+  level:
+    com.aiz.gulimall.search: debug
+    root: warn
+  pattern:
+    console: "%d{yyyy-MM-dd} [%thread] - %msg%n"
