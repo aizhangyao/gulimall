@@ -52,6 +52,16 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @Retention(RetentionPolicy.RUNTIME)
  *  (二).编写一个自定义的校验器 ConstraintValidator
  *  (三).关联自定义的校验器和自定义的校验注解
+ *
+ * 六、模板引擎
+ *  (一).thymeleaf-starter：关闭缓存
+ *  (二).静态资源都放在static文件下就可以按照路径直接访问
+ *  (三).页面都放在templates下，直接访问
+ *      SpringBoot 访问项目的时候，默认会找index
+ *  (四).页面修改不重启服务器实时更新
+ *      (1).引入dev-tools
+ *      (2).修改完页面使用Ctrl+Shift+F9重新自动编译，如果是代码配置还是推荐重启项目。
+ *  可以参考WebMvcAutoConfiguration.welcomePageHandlerMapping()这个方法看。就可以理解为什么访问`localhost:8000`会转到`resources/templates/index.html`
  */
 @EnableFeignClients(basePackages = "com.aiz.gulimall.product.feign")
 @SpringBootApplication

@@ -17,6 +17,8 @@
 #      secret-key: your-secret-key
 #      oss:
 #        endpoint: oss-cn-hangzhou.aliyuncs.com
+#  thymeleaf:
+#    cache: false
 #mybatis-plus:
 #  mapper-locations: classpath:/mapper/**/*.xml
 #  global-config:

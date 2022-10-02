@@ -90,6 +90,12 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         return parentPath.toArray(new Long[parentPath.size()]);
     }
 
+    @Override
+    public List<CategoryEntity> getLeve1Categorys() {
+        List<CategoryEntity> categoryEntities = baseMapper.selectList(new QueryWrapper<CategoryEntity>().eq("parent_cid", 0));
+        return categoryEntities;
+    }
+
     /**
      * 级联更新所有关联的数据
      * @param category
@@ -115,7 +121,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     //递归查找所有菜单的子菜单
     private List<CategoryEntity> getChildrens(CategoryEntity root, List<CategoryEntity> all) {
         List<CategoryEntity> children = all.stream().filter(categoryEntity -> {
-            return categoryEntity.getParentCid() == root.getCatId();
+            return categoryEntity.getParentCid().equals(root.getCatId());
         }).map(categoryEntity -> {
             //1.找到子菜单
             categoryEntity.setChildren(getChildrens(categoryEntity, all));
