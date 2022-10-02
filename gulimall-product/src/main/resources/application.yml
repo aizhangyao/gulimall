@@ -19,6 +19,10 @@
 #        endpoint: oss-cn-hangzhou.aliyuncs.com
 #  thymeleaf:
 #    cache: false
+#  redis:
+#    host: 127.0.0.1
+#    port: 6379
+#    password: redis
 #mybatis-plus:
 #  mapper-locations: classpath:/mapper/**/*.xml
 #  global-config:

@@ -62,6 +62,47 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  *      (1).引入dev-tools
  *      (2).修改完页面使用Ctrl+Shift+F9重新自动编译，如果是代码配置还是推荐重启项目。
  *  可以参考WebMvcAutoConfiguration.welcomePageHandlerMapping()这个方法看。就可以理解为什么访问`localhost:8000`会转到`resources/templates/index.html`
+ *
+ *  七、整合Redis
+ *  (一).引入data-redis-starter
+ *  (二).简单配置redis的host等信息
+ *  (三).使用SpringBoot自动配置好的StringRedisTemplate来操作Redis
+ *  redis->Map：存放数据key,数据值value
+ *
+ *  八、整合redisson作为分布式锁等功能框架
+ *  (一).引入依赖
+ *  <dependency>
+ *      <groupId>org.redisson</groupId>
+ *      <artifactId>redisson</artifactId>
+ *      <version>3.12.0</version>
+ *  </dependency>
+ *  (二).配置redisson
+ *  https://github.com/redisson/redisson/wiki/2.-%E9%85%8D%E7%BD%AE%E6%96%B9%E6%B3%95
+ *
+ *  九、整合SpringCache简化缓存开发
+ *  (一).引入依赖
+ *      spring-boot-starter-cache、spring-boot-starter-data-redis
+ *  (二).写配置
+ *      (1).自动配置了哪些？
+ *          CacheAutoConfiguration会导入RedisCacheConfiguration
+ *          自动配置好了缓存管理器RedisCacheManager
+ *      (2).配置使用redis作为缓存
+ *      在application.properties中配置。
+ *  (三).测试使用缓存
+ *      @Cacheable: Triggers cache population.触发将数据保存到缓存的操作
+ *      @CacheEvict: Triggers cache eviction.触发将数据从缓存删除的操作
+ *      @CachePut: Updates the cache without interfering with the method execution.不影响方法执行更新缓存
+ *      @Caching: Regroups multiple cache operations to be applied on a method.组合以上多个操作
+ *      @CacheConfig: Shares some common cache-related settings at class-level.在类级别共享缓存的相同配置
+ *      (1).开启缓存功能@EnableCaching
+ *      (2).只需要使用注解就能完成缓存操作
+ *  (四).原理
+ *      CacheAutoConfiguration - > RedisCacheConfiguration ->
+ *      自动配置了RedisCacheManager - > 初始化所有的缓存 - > 每个缓存决定了使用什么配置
+ *      - >如果redisCacheConfiguration有就用已有的，没有就用默认配置
+ *      - >想改缓存的配置，只需要给容器中放一个RedisCacheConfiguration即可
+ *      - >就会应用到当前RedisCacheManager管理的所有缓存分区中
+ *
  */
 @EnableFeignClients(basePackages = "com.aiz.gulimall.product.feign")
 @SpringBootApplication
