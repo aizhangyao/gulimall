@@ -51,7 +51,7 @@ public class MallSearchServiceImpl implements MallSearchService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return result;
     }
 
     /**

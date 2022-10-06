@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @ClassName SearchController
  * @Description
@@ -27,11 +29,16 @@ public class SearchController {
      * @return
      */
     @GetMapping("/list.html")
-    public String listPage(SearchParam searchParam, Model model){
+    public String listPage(SearchParam searchParam, Model model, HttpServletRequest request){
+
+        searchParam.set_queryString(request.getQueryString());
+
         //1.根据传递过来的页面的查询参数，去es中检索商品
         SearchResult result = mallSearchService.search(searchParam);
+
         model.addAttribute("result",result);
-        return "index";
+
+        return "list";
     }
 
 }

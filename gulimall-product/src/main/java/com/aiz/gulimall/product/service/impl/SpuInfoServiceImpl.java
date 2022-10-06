@@ -256,6 +256,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         return new PageUtils(page);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void up(Long spuId) {
         //1.查出当前spuId对应的所有sku信息，品牌的名字。
@@ -269,13 +270,12 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         List<Long> searchAttrIds = attrService.selectSearchAttrIds(attrIds);
         Set<Long> idSet = new HashSet<>(searchAttrIds);
 
-        List<SkuEsModel.Attr> attrs = new ArrayList<>();
         List<SkuEsModel.Attr> attrList = baseAttrs.stream().filter(item -> {
             return idSet.contains(item.getAttrId());
         }).map(item -> {
-            SkuEsModel.Attr attrs1 = new SkuEsModel.Attr();
-            BeanUtils.copyProperties(item, attrs1);
-            return attrs1;
+            SkuEsModel.Attr attrs = new SkuEsModel.Attr();
+            BeanUtils.copyProperties(item, attrs);
+            return attrs;
         }).collect(Collectors.toList());
 
         // TODO 1.发送远程调用，库存系统查询是否有库存

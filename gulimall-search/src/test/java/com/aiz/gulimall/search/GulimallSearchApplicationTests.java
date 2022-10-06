@@ -166,7 +166,7 @@ class GulimallSearchApplicationTests {
         request.id("1");//数据的id
         //request.source("userName","zhangsan","age",18,"gender","男");
         User user = new User();
-        user.setUserName("zhangsan");
+        user.setUserName("zhangyao");
         user.setAge(18);
         user.setGender("男");
         String jsonString = JSON.toJSONString(user);
