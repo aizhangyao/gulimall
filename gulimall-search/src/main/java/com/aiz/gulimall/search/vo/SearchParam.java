@@ -37,7 +37,7 @@ public class SearchParam {
      * attrs=2_5寸:6寸
      */
     //是否有库存(0表示无库存，1表示有库存)
-    private Integer hasStock = 1;
+    private Integer hasStock;
     //价格区间查询
     private String skuPrice;
     //按照品牌进行查询，可以多选

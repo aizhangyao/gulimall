@@ -7,6 +7,7 @@ import java.util.Map;
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
 import com.aiz.gulimall.product.entity.ProductAttrValueEntity;
 import com.aiz.gulimall.product.service.ProductAttrValueService;
+import com.aiz.gulimall.product.vo.AttrRespVo;
 import com.aiz.gulimall.product.vo.AttrVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -79,7 +80,7 @@ public class AttrController {
     //@RequiresPermissions("product:attr:info")
     public R info(@PathVariable("attrId") Long attrId){
 //		AttrEntity attr = attrService.getById(attrId);
-        AttrVo attrVo = attrService.getAttrInfo(attrId);
+        AttrRespVo attrVo = attrService.getAttrInfo(attrId);
         return R.ok().put("attr", attrVo);
     }
 

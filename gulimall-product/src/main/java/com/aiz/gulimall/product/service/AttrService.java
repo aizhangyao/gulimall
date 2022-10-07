@@ -1,6 +1,7 @@
 package com.aiz.gulimall.product.service;
 
 import com.aiz.gulimall.product.vo.AttrGroupRelationVo;
+import com.aiz.gulimall.product.vo.AttrRespVo;
 import com.aiz.gulimall.product.vo.AttrVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.aiz.common.utils.PageUtils;
@@ -24,7 +25,7 @@ public interface AttrService extends IService<AttrEntity> {
 
     PageUtils queryBaseAttrPage(Map<String, Object> params, Long catelogId, String type);
 
-    AttrVo getAttrInfo(Long attrId);
+    AttrRespVo getAttrInfo(Long attrId);
 
     void updateAttr(AttrVo attr);
 

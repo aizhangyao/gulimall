@@ -23,9 +23,14 @@ public class SearchResult {
     /**
      * 以下是分页信息
      */
-    private Integer pageNum;//当前页码
-    private Long total;//总记录数
-    private Integer totalPages;//总页码
+    // 当前页码
+    private Integer pageNum;
+    // 总记录数
+    private Long total;
+    // 总页码
+    private Integer totalPages;
+
+    private List<Integer> pageNavs;
 
     /**
      * 当前查询到的结果，所有涉及到的品牌
@@ -42,8 +47,18 @@ public class SearchResult {
      */
     private List<AttrVo> attrs;
 
-    //以上是返回给页面的所有信息
+    /**
+     * 面包屑导航数据
+     */
+    private List<NavVo> navs;
 
+    //以上是返回给页面的所有信息
+    @Data
+    public static class NavVo {
+        private String navName;
+        private String navValue;
+        private String link;
+    }
 
     @Data
     public static class BrandVo{
