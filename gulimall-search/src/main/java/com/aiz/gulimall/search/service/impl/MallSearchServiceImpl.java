@@ -74,7 +74,7 @@ public class MallSearchServiceImpl implements MallSearchService {
         try {
             //2.执行检索请求
             SearchResponse response = client.search(searchRequest, GuliElasticSearchConfig.COMMON_OPTIONS);
-            System.out.println("查询es的response内容 " + response);
+            log.debug("查询es的response内容 {}", response);
             //3.分析响应数据封装成我们需要的格式
             result = buildSearchResult(response, searchParam);
         } catch (IOException e) {
@@ -188,7 +188,7 @@ public class MallSearchServiceImpl implements MallSearchService {
         /**
          * 聚合分析
          */
-        /*
+
         //1. 按照品牌进行聚合
         TermsAggregationBuilder brand_agg = AggregationBuilders.terms("brand_agg");
         brand_agg.field("brandId").size(50);
@@ -219,7 +219,7 @@ public class MallSearchServiceImpl implements MallSearchService {
         //2.1.1 在每个属性ID下，按照属性值进行聚合
         attr_id_agg.subAggregation(AggregationBuilders.terms("attr_value_agg").field("attrs.attrValue").size(50));
         searchSourceBuilder.aggregation(attr_agg);
-         */
+
         log.debug("构建的DSL语句 {}", searchSourceBuilder);
 
         SearchRequest searchRequest = new SearchRequest(new String[]{EsConstant.PRODUCT_INDEX}, searchSourceBuilder);
@@ -259,7 +259,6 @@ public class MallSearchServiceImpl implements MallSearchService {
 
         //2、当前商品涉及到的所有属性信息
         List<SearchResult.AttrVo> attrVos = new ArrayList<>();
-        /*
         //获取属性信息的聚合
         ParsedNested attrsAgg = response.getAggregations().get("attr_agg");
         ParsedLongTerms attrIdAgg = attrsAgg.getAggregations().get("attr_id_agg");
@@ -281,14 +280,11 @@ public class MallSearchServiceImpl implements MallSearchService {
 
             attrVos.add(attrVo);
         }
-         */
-
         result.setAttrs(attrVos);
 
         //3、当前商品涉及到的所有品牌信息
         List<SearchResult.BrandVo> brandVos = new ArrayList<>();
         //获取到品牌的聚合
-        /*
         ParsedLongTerms brandAgg = response.getAggregations().get("brand_agg");
         for (Terms.Bucket bucket : brandAgg.getBuckets()) {
             SearchResult.BrandVo brandVo = new SearchResult.BrandVo();
@@ -309,14 +305,12 @@ public class MallSearchServiceImpl implements MallSearchService {
 
             brandVos.add(brandVo);
         }
-         */
         result.setBrands(brandVos);
 
 
         //4、当前商品涉及到的所有分类信息
         //获取到分类的聚合
         List<SearchResult.CatalogVo> catalogVos = new ArrayList<>();
-        /*
         ParsedLongTerms catalogAgg = response.getAggregations().get("catalog_agg");
         for (Terms.Bucket bucket : catalogAgg.getBuckets()) {
             SearchResult.CatalogVo catalogVo = new SearchResult.CatalogVo();
@@ -330,7 +324,6 @@ public class MallSearchServiceImpl implements MallSearchService {
             catalogVo.setCatalogName(catalogName);
             catalogVos.add(catalogVo);
         }
-         */
         result.setCatalogs(catalogVos);
 
         //===============以上可以从聚合信息中获取====================//

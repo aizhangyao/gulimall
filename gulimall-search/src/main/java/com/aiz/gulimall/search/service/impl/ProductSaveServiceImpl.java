@@ -46,18 +46,21 @@ public class ProductSaveServiceImpl implements ProductSaveService {
             indexRequest.id(model.getSkuId().toString());
             String json = JSON.toJSONString(model);
             indexRequest.source(json, XContentType.JSON);
-
             bulkRequest.add(indexRequest);
         }
+
         BulkResponse bulk = restHighLevelClient.bulk(bulkRequest, GuliElasticSearchConfig.COMMON_OPTIONS);
+
         //TODO 如果批量错误
-        boolean b = bulk.hasFailures();
+        boolean hasFailures = bulk.hasFailures();
+
         List<String> collect = Arrays.stream(bulk.getItems()).map(item -> {
             return item.getId();
         }).collect(Collectors.toList());
+
         log.info("ProductSaveServiceImpl.productStstusUp 上架成功商品：{} ,返回的数据：{}",collect,bulk.toString());
         
-        return b;
+        return hasFailures;
     }
 
 }

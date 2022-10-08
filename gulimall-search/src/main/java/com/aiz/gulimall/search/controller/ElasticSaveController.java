@@ -27,22 +27,29 @@ import java.util.List;
 @RestController
 public class ElasticSaveController {
     @Autowired
-    ProductSaveService productSaveService;
+    private ProductSaveService productSaveService;
 
-    //上架商品
+    /**
+     * 上架商品
+     *
+     * @param skuEsModels
+     * @return
+     */
     @PostMapping("/product")
-    public R productStatusUp(@RequestBody List<SkuEsModel> skuEsModels){
-        boolean b = false;
+    public R productStatusUp(@RequestBody List<SkuEsModel> skuEsModels) {
+        boolean status = false;
+
         try {
-            b = productSaveService.productStatusUp(skuEsModels);
+            status = productSaveService.productStatusUp(skuEsModels);
         } catch (IOException e) {
-            log.error("ElasticSaveController商品上架错误：{}",e);
-            return R.error(BizCodeEnum.PRODUCT_UP_EXCEPYION.getCode(),BizCodeEnum.PRODUCT_UP_EXCEPYION.getMsg());
+            log.error("ElasticSaveController商品上架错误：{}", e);
+            return R.error(BizCodeEnum.PRODUCT_UP_EXCEPYION.getCode(), BizCodeEnum.PRODUCT_UP_EXCEPYION.getMsg());
         }
-        if(!b){
+
+        if (status) {
+            return R.error(BizCodeEnum.PRODUCT_UP_EXCEPYION.getCode(), BizCodeEnum.PRODUCT_UP_EXCEPYION.getMsg());
+        } else {
             return R.ok();
-        }else{
-            return R.error();
         }
 
     }

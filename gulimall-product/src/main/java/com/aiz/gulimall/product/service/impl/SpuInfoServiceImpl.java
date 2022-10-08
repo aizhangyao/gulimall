@@ -298,6 +298,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
             //skuPrice,skuImg,hasStock,hotScore,brandName,brandImg,catalogName,attrs[attrId,attrName,attrValue]
             esModel.setSkuPrice(sku.getPrice());
             esModel.setSkuImg(sku.getSkuDefaultImg());
+
             //hasStock,hotScore
             // TODO 1.发送远程调用，库存系统查询是否有库存
             //设置库存信息
@@ -309,12 +310,16 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
 
             // TODO 2.热度评分。0。
             esModel.setHotScore(0L);
+
             // TODO 3.查询品牌和分类的名字信息
-            BrandEntity brand = brandService.getById(esModel.getBrandId());
-            esModel.setBrandName(brand.getName());
-            esModel.setBrandImg(brand.getLogo());
-            CategoryEntity category = categoryService.getById(esModel.getCatalogId());
-            esModel.setCatalogName(category.getName());
+            BrandEntity brandEntity = brandService.getById(esModel.getBrandId());
+            esModel.setBrandName(brandEntity.getName());
+            esModel.setBrandId(brandEntity.getBrandId());
+            esModel.setBrandImg(brandEntity.getLogo());
+
+            CategoryEntity categoryEntity = categoryService.getById(esModel.getCatalogId());
+            esModel.setCatalogName(categoryEntity.getName());
+            esModel.setCatalogId(categoryEntity.getCatId());
 
             // TODO 4.查询当前sku的所有可以被用来检索的规格属性
             //设置检索属性
