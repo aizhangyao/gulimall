@@ -3,6 +3,7 @@ package com.aiz.gulimall.search.vo;
 import com.aiz.common.to.es.SkuEsModel;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -50,7 +51,7 @@ public class SearchResult {
     /**
      * 面包屑导航数据
      */
-    private List<NavVo> navs;
+    private List<NavVo> navs = new ArrayList<>();
 
     //以上是返回给页面的所有信息
     @Data

@@ -7,6 +7,7 @@ import com.aiz.gulimall.search.constant.EsConstant;
 import com.aiz.gulimall.search.feign.ProductFeignService;
 import com.aiz.gulimall.search.service.MallSearchService;
 import com.aiz.gulimall.search.vo.AttrResponseVo;
+import com.aiz.gulimall.search.vo.BrandVo;
 import com.aiz.gulimall.search.vo.SearchParam;
 import com.aiz.gulimall.search.vo.SearchResult;
 import com.alibaba.fastjson.JSON;
@@ -378,6 +379,32 @@ public class MallSearchServiceImpl implements MallSearchService {
 
             result.setNavs(collect);
         }
+
+        //品牌、分类
+        /*
+        if (param.getBrandId() != null && param.getBrandId().size() > 0) {
+            List<SearchResult.NavVo> navs = result.getNavs();
+            SearchResult.NavVo navVo = new SearchResult.NavVo();
+            navVo.setNavName("品牌");
+
+            // 远程调用查询所有品牌
+            R r = productFeignService.brandInfo(param.getBrandId());
+            if(r.getCode() == 0){
+                List<BrandVo> brand = (List<BrandVo>) r.getData("brand", new TypeReference<List<BrandVo>>() {
+                });
+                StringBuffer buffer = new StringBuffer();
+                String replace = "";
+                for (BrandVo brandVo : brand) {
+                    buffer.append(brandVo.getBrandName()+";");
+                    replace = replaceQueryString(param,brandVo.getBrandId()+"","brandId");
+                }
+                navVo.setNavValue(buffer.toString());
+                navVo.setLink("http://search.gulimall.com/list.html?" + replace);
+            }
+            navs.add(navVo);
+        }
+        */
+
         log.debug("构建结果数据 {}", JSON.toJSONString(result));
         return result;
     }
