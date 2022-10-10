@@ -1,6 +1,10 @@
 package com.aiz.gulimall.product;
 
+import com.aiz.gulimall.product.dao.AttrGroupDao;
+import com.aiz.gulimall.product.dao.SkuSaleAttrValueDao;
 import com.aiz.gulimall.product.service.CategoryService;
+import com.aiz.gulimall.product.vo.SkuItemSaleAttrVo;
+import com.aiz.gulimall.product.vo.SpuItemAttrGroupVo;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.model.PutObjectRequest;
@@ -15,6 +19,7 @@ import org.springframework.data.redis.core.ValueOperations;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -38,6 +43,10 @@ class GulimallProductApplicationTests {
     private StringRedisTemplate stringRedisTemplate;
     @Autowired
     private RedissonClient redissonClient;
+    @Autowired
+    private AttrGroupDao attrGroupDao;
+    @Autowired
+    private SkuSaleAttrValueDao skuSaleAttrValueDao;
 
     @Test
     public void testRedisson(){
@@ -94,4 +103,16 @@ class GulimallProductApplicationTests {
         System.out.println("上传完成...");
     }
 
+
+    @Test
+    public void test1() {
+        List<SkuItemSaleAttrVo> saleAttrBySpuId = skuSaleAttrValueDao.getSaleAttrBySpuId(13L);
+        saleAttrBySpuId.forEach(System.out::println);
+    }
+
+    @Test
+    public void test() {
+        List<SpuItemAttrGroupVo> attrGroupWithAttrsBySpuId = attrGroupDao.getAttrGroupWithAttrsBySpuId(130L, 225L);
+        attrGroupWithAttrsBySpuId.forEach(System.out::println);
+    }
 }
