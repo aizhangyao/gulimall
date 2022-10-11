@@ -60,13 +60,11 @@
             `
             <ul class="header_ul_right">
                 <li style="border: 0;">
-                    <a th:if="${session.loginUser == null}" href="http://auth.gulimall.com/login.html"
-                       class="aa">你好，请登录</a>
+                    <a th:if="${session.loginUser == null}" href="http://auth.gulimall.com/login.html" class="aa">你好，请登录</a>
                     <a th:if="${session.loginUser != null}">欢迎, [[${session.loginUser.nickname}]]</a>
                 </li>
                 <li>
-                    <a th:if="${session.loginUser == null}" href="http://auth.gulimall.com/reg.html"
-                       style="color: red;">免费注册</a>
+                    <a th:if="${session.loginUser == null}" href="http://auth.gulimall.com/reg.html" style="color: red;">免费注册</a>
                 </li>
                 <li><a href="http://member.gulimall.com/memberOrder.html" class="aa">我的订单</a> |</li>
                 <li class="jingdong"><a href="/static/item/javascript:;">我的京东</a><span
@@ -1323,7 +1321,7 @@
         <a href="/static/item/##">：4006561155 </a>
     </p>
     <p class="p1">
-        <a href="/static/item/##"> Copyright © 2004-2017 京东JD.com 版权所有</a>|
+        <a href="/static/item/##"> Copyright © 2019-2022 谷粒商城GULIMALL.com 版权所有</a>|
         <a href="/static/item/##"> 消费者维权热线：4006067733 经营证照</a>|
     </p>
     <p class="p1">

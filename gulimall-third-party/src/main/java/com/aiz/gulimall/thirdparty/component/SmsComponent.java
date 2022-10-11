@@ -1,50 +1,42 @@
-package com.aiz.gulimall.thirdparty;
+package com.aiz.gulimall.thirdparty.component;
 
-import com.aiz.gulimall.thirdparty.component.SmsComponent;
 import com.alibaba.fastjson.JSON;
 import com.aliyun.dysmsapi20170525.models.SendSmsResponse;
-import com.aliyun.oss.OSSClient;
 import com.aliyun.tea.TeaException;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-
+/**
+ * @ClassName SmsComponent
+ * @Description TODO
+ * @Author ZhangYao
+ * @Date Create in 14:56 2022/10/11
+ * @Version 1.0
+ */
+@Data
 @Slf4j
-@SpringBootTest
-class GulimallThirdPartyApplicationTests {
-
-    @Autowired
-    private OSSClient ossClient;
-
+@Component
+public class SmsComponent {
     @Value("${spring.cloud.alicloud.access-key}")
     private String accessKeyId;
 
     @Value("${spring.cloud.alicloud.secret-key}")
     private String accessKeySecret;
 
-    @Resource
-    private SmsComponent smsComponent;
-
-    @Test
-    public void testSendSmsCode() throws Exception {
-        smsComponent.sendSmsCode("17805053916", "888666");
-    }
-
-    @Test
-    public void sendSmsCode() throws Exception {
-        com.aliyun.dysmsapi20170525.Client client = GulimallThirdPartyApplicationTests.createClient(accessKeyId, accessKeySecret);
+    public void sendSmsCode(String phone, String code){
+        com.aliyun.dysmsapi20170525.Client client = null;
+        try {
+            client = SmsComponent.createClient(accessKeyId, accessKeySecret);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         com.aliyun.dysmsapi20170525.models.SendSmsRequest sendSmsRequest = new com.aliyun.dysmsapi20170525.models.SendSmsRequest()
                 .setSignName("阿里云短信测试")
                 .setTemplateCode("SMS_154950909")
-                .setPhoneNumbers("17551320715")
-                .setTemplateParam("{\"code\":\"4444\"}");
+                .setPhoneNumbers(phone)
+                .setTemplateParam("{\"code\":\""+code+"\"}");
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         try {
             // 复制代码运行请自行打印 API 的返回值
@@ -71,16 +63,4 @@ class GulimallThirdPartyApplicationTests {
         return new com.aliyun.dysmsapi20170525.Client(config);
     }
 
-    @Test
-    public void testUpdateUseSpringCloud() throws FileNotFoundException {
-        InputStream inputStream = new FileInputStream("/Users/zhangyao/Picture/square/zhangyao-logo.png");
-        ossClient.putObject("gulimall-aiz", "zhangyao-logo.png",inputStream);
-        ossClient.shutdown();
-        System.out.println("上传成功....");
-    }
-
-    @Test
-    void contextLoads() {
-
-    }
 }
