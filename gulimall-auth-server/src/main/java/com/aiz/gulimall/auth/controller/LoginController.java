@@ -56,6 +56,7 @@ public class LoginController {
         if (login.getCode() == 0) {
             MemberResponseVo data = (MemberResponseVo) login.getData("data", new TypeReference<MemberResponseVo>() {
             });
+
             session.setAttribute(LOGIN_USER, data);
             return "redirect:http://gulimall.com";
         } else {

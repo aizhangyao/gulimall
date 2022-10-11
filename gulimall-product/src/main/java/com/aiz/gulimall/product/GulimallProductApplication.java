@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 
 /**
@@ -104,6 +105,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  *      - >就会应用到当前RedisCacheManager管理的所有缓存分区中
  *
  */
+
+@EnableRedisHttpSession
 @EnableFeignClients(basePackages = "com.aiz.gulimall.product.feign")
 @SpringBootApplication
 @EnableDiscoveryClient
