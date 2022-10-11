@@ -1,6 +1,7 @@
 package com.aiz.gulimall.auth.feign;
 
 import com.aiz.common.utils.R;
+import com.aiz.gulimall.auth.vo.SocialUser;
 import com.aiz.gulimall.auth.vo.UserLoginVo;
 import com.aiz.gulimall.auth.vo.UserRegisterVo;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -21,4 +22,7 @@ public interface MemberFeignService {
 
     @PostMapping(value = "/member/member/login")
     R login(@RequestBody UserLoginVo vo);
+
+    @PostMapping(value = "/member/member/oauth2/login")
+    R oauthLogin(@RequestBody SocialUser socialUser) throws Exception;
 }

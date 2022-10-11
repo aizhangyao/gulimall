@@ -4,6 +4,7 @@ import com.aiz.gulimall.member.exception.PhoneExistException;
 import com.aiz.gulimall.member.exception.UserNameExistException;
 import com.aiz.gulimall.member.vo.MemberUserLoginVo;
 import com.aiz.gulimall.member.vo.MemberUserRegisterVo;
+import com.aiz.gulimall.member.vo.SocialUser;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.aiz.common.utils.PageUtils;
 import com.aiz.gulimall.member.entity.MemberEntity;
@@ -40,5 +41,10 @@ public interface MemberService extends IService<MemberEntity> {
      * 用户登录
      */
     MemberEntity login(MemberUserLoginVo vo);
+
+    /**
+     * 社交用户的登录
+     */
+    MemberEntity login(SocialUser socialUser) throws Exception;
 }
 
