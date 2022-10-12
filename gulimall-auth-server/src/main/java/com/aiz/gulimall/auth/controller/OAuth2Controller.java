@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,6 +37,13 @@ public class OAuth2Controller {
     @Autowired
     private MemberFeignService memberFeignService;
 
+    @Value("${weibo.open.client_id}")
+    private String accessKeyId;
+    @Value("${weibo.open.client_secret}")
+    private String accessKeySecret;
+    @Value("${weibo.open.redirect_url}")
+    private String redirectUri;
+
     /**
      * 社交登录成功回调
      */
@@ -43,11 +51,13 @@ public class OAuth2Controller {
     public String weibo(@RequestParam("code") String code, HttpSession session, HttpServletResponse servletResponse) throws Exception {
 
         Map<String, String> map = new HashMap<>();
-        map.put("client_id", "2077705774");
-        map.put("client_secret", "40af02bd1c7e435ba6a6e9cd3bf799fd");
+        map.put("client_id", accessKeyId);
+        map.put("client_secret", accessKeySecret);
         map.put("grant_type", "authorization_code");
-        map.put("redirect_uri", "http://auth.gulimall.com/oauth2.0/weibo/success");
+        map.put("redirect_uri", redirectUri);
         map.put("code", code);
+
+        log.info("OAuth2 授权第一步 authorize 接口，请求用户授权code is {}", code);
 
         //1、根据用户授权返回的code换取access_token
         HttpResponse response = HttpUtils.doPost("https://api.weibo.com", "/oauth2/access_token", "post", new HashMap<>(), map, new HashMap<>());
@@ -62,7 +72,7 @@ public class OAuth2Controller {
             //知道了哪个社交用户
             //1）、当前用户如果是第一次进网站，自动注册进来（为当前社交用户生成一个会员信息，以后这个社交账号就对应指定的会员）
             //登录或者注册这个社交用户
-            System.out.println(socialUser.getAccess_token());
+            log.info("OAuth2 授权第二步 access_token 接口，用 code 换取授权 access_token is {}", socialUser.getAccess_token());
             //调用远程服务
             R oauthLogin = memberFeignService.oauthLogin(socialUser);
             if (oauthLogin.getCode() == 0) {

@@ -70,7 +70,7 @@ $('.header_gw').hover(function() {
 }, function() {
 	$(this).next('.header_ko').stop(true).fadeOut(100)
 })
-//我的京东下拉
+//我的谷粒下拉
 $(".header_wdjd").hover(function() {
 	$(this).children(".header_wdjd_txt").stop(true).show(100)
 	$(this).css({
