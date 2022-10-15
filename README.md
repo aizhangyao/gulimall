@@ -22,6 +22,14 @@
 
 [本地-?谷粒商城-搜索页-ip:port](http://127.0.0.1:12001/list.html)
 
+[本地-RabbitMQ](http://127.0.0.1:15672/)
+
+
+登录页 http://auth.gulimall.com/login.html
+
+注册页 http://auth.gulimall.com/reg.html 
+
+
 # 依赖版本选择
 
 | 组件                           | 版本                       |

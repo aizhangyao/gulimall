@@ -20,8 +20,11 @@
         <module>gulimall-gateway</module>
         <module>gulimall-third-party</module>
         <module>gulimall-search</module>
+        <module>gulimall-cart</module>
         <module>renren-fast</module>
         <module>renren-generator</module>
+        <module>gulimall-test-sso-client</module>
+        <module>gulimall-test-sso-server</module>
     </modules>
 
 </project>

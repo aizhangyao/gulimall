@@ -24,7 +24,6 @@
         <spring-cloud-alibaba.version>2.2.9.RELEASE</spring-cloud-alibaba.version>
     </properties>
 
-
     <dependencies>
         <dependency>
             <groupId>com.aiz.gulimall</groupId>
@@ -39,6 +38,10 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
 
         <dependency>
