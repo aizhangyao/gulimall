@@ -4,31 +4,35 @@
 
 # 项目介绍
 
-[本地-人人代码生成器](http://127.0.0.1:8082/#generator.html)
+| 组件地址                                                           |
+|----------------------------------------------------------------|
+| [本地-人人代码生成器](http://127.0.0.1:8082/#generator.html)            |
+| [本地-人人后台管理系统](http://localhost:8001/#/login)                   |
+| [本地-Nacos注册配置中心](http://127.0.0.1:8848/nacos/#/login)          |
+| [本地-Elasticsearch7.4.2](http://127.0.0.1:9200/)                |
+| [本地-Kibana7.4.2](http://localhost:5601/app/kibana#/home?_g=()) |
+| [本地-谷粒商城-首页-域名](http://gulimall.com/)                          |
+| [本地-谷粒商城-首页-ip:port](http://127.0.0.1:10001/#)                 |
+| [本地-谷粒商城-搜索页-域名](http://search.gulimall.com/)                  |
+| [本地-?谷粒商城-搜索页-ip:port](http://127.0.0.1:12001/list.html)       |
+| [本地-RabbitMQ](http://127.0.0.1:15672/)                         |
 
-[本地-人人后台管理系统](http://localhost:8001/#/login)
+# 用户端页面地址
 
-[本地-Nacos注册配置中心](http://127.0.0.1:8848/nacos/#/login)
-
-[本地-Elasticsearch7.4.2](http://127.0.0.1:9200/)
-
-[本地-Kibana7.4.2](http://localhost:5601/app/kibana#/home?_g=())
-
-[本地-谷粒商城-首页-域名](http://gulimall.com/)
-
-[本地-谷粒商城-首页-ip:port](http://127.0.0.1:10001/#)
-
-[本地-谷粒商城-搜索页-域名](http://search.gulimall.com/)
-
-[本地-?谷粒商城-搜索页-ip:port](http://127.0.0.1:12001/list.html)
-
-[本地-RabbitMQ](http://127.0.0.1:15672/)
-
-
-登录页 http://auth.gulimall.com/login.html
-
-注册页 http://auth.gulimall.com/reg.html 
-
+|      | 静态资源          | 页面url                                                      |
+|------|---------------|------------------------------------------------------------|
+| 登录页面 | login         | http://auth.gulimall.com/login.html                        |
+| 等待付款 | order/detail  | http://order.gulimall.com/detail.html                      |
+| 订单页  | member/list   | http://member.gulimall.com/                                |
+| 分类   |               |                                                            |
+| 购物车  | cart          | http://cart.gulimall.com/cart.html                         |
+|      |               | http://cart.gulimall.com/addToCartSuccessPage.html?skuId=3 |
+| 结算页  | order/confirm | http://order.gulimall.com/toTrade                          |
+| 收银页  | order/pay     | http://order.gulimall.com/pay.html                         |
+| 首页资源 | index         | http://gulimall.com/                                       |
+| 搜索页  | search        | http://search.gulimall.com/list.html?keyword=              |
+| 详情页  | item          | http://item.gulimall.com/1.html                            |
+| 注册页面 | reg           | http://auth.gulimall.com/reg.html                          |
 
 # 依赖版本选择
 
@@ -40,18 +44,22 @@
 
 # 服务规划
 
-| 服务                   | 端口    |
-|----------------------|-------|
-| gulimall-common      | /     |
-| gulimall-gateway     | 88    |
-| gulimall-coupon      | 7001  |
-| gulimall-member      | 8002  |
-| gulimall-order       | 9001  |
-| gulimall-product     | 10001 |
-| gulimall-ware        | 11001 |
-| gulimall-search      | 12001 |
-| gulimall-third-party | 30001 |
-| ...                  | ...   |
-| renren-fast          | 8080  |
-| renren-generator     | 8082  |
-| 后台管理系统-vue           | 8001  |
+| 服务                       | 端口    |
+|--------------------------|-------|
+| gulimall-common          | /     |
+| gulimall-gateway         | 88    |
+| gulimall-coupon          | 7001  |
+| gulimall-member          | 8002  |
+| gulimall-order           | 9001  |
+| gulimall-product         | 10001 |
+| gulimall-ware            | 11001 |
+| gulimall-search          | 12001 |
+| gulimall-auth-server     | 20000 |
+| gulimall-third-party     | 30001 |
+| gulimall-cart            | 31000 |
+| ...                      | ...   |
+| gulimall-test-sso-client | 8081  |
+| gulimall-test-sso-server | 8080  |
+| renren-fast              | 8080  |
+| renren-generator         | 8082  |
+| 后台管理系统-vue               | 8001  |
