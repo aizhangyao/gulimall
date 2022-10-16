@@ -41,7 +41,6 @@ public class LoginUserInterceptor implements HandlerInterceptor {
         if (attribute != null) {
             //把登录后用户的信息放在ThreadLocal里面进行保存
             loginUser.set(attribute);
-
             return true;
         } else {
             //未登录，返回登录页面
