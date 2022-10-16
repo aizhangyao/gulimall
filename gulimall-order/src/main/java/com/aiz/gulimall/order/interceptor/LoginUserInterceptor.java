@@ -14,7 +14,7 @@ import static com.aiz.common.constant.AuthServerConstant.LOGIN_USER;
 
 /**
  * @ClassName LoginUserInterceptor
- * @Description TODO
+ * @Description 登录拦截器
  * @Author ZhangYao
  * @Date Create in 16:25 2022/10/16
  * @Version 1.0
