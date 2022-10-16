@@ -28,9 +28,7 @@ public interface WareFeignService {
      *
      * 3.自己封装解析结果
      *
-     * @param skuIds
-     * @return
      */
-    @PostMapping("/ware/waresku/hasstock")
+    @PostMapping("/ware/waresku/hasStock")
     R<List<SkuHasStockVo>> getSkusHasStock(@RequestBody List<Long> skuIds);
 }
