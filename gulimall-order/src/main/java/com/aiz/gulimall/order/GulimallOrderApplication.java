@@ -5,6 +5,8 @@ import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 /**
  * 一.整合Mybatis-Plus
@@ -35,8 +37,10 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  *      @RabbitHandler：标在方法上
  */
 
+@EnableRedisHttpSession
 @EnableRabbit
 @MapperScan("com.aiz.gulimall.order.dao")
+@EnableFeignClients(basePackages = "com.aiz.gulimall.order.feign")
 @SpringBootApplication
 @EnableDiscoveryClient
 public class GulimallOrderApplication {
