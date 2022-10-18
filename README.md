@@ -11,10 +11,8 @@
 | [本地-Nacos注册配置中心](http://127.0.0.1:8848/nacos/#/login)          |
 | [本地-Elasticsearch7.4.2](http://127.0.0.1:9200/)                |
 | [本地-Kibana7.4.2](http://localhost:5601/app/kibana#/home?_g=()) |
-| [本地-谷粒商城-首页-域名](http://gulimall.com/)                          |
-| [本地-谷粒商城-首页-ip:port](http://127.0.0.1:10001/#)                 |
-| [本地-谷粒商城-搜索页-域名](http://search.gulimall.com/)                  |
-| [本地-?谷粒商城-搜索页-ip:port](http://127.0.0.1:12001/list.html)       |
+| [本地-谷粒商城-首页](http://gulimall.com/)                             |
+| [本地-谷粒商城-搜索页](http://search.gulimall.com/)                     |
 | [本地-RabbitMQ](http://127.0.0.1:15672/)                         |
 
 # 用户端页面地址
@@ -63,3 +61,20 @@
 | renren-fast              | 8080  |
 | renren-generator         | 8082  |
 | 后台管理系统-vue               | 8001  |
+
+
+
+host配置
+
+```bash
+127.0.0.1 gulimall.com
+127.0.0.1 search.gulimall.com
+127.0.0.1 item.gulimall.com
+127.0.0.1 auth.gulimall.com
+127.0.0.1 cart.gulimall.com
+127.0.0.1 order.gulimall.com
+
+127.0.0.1 ssoserver.com
+127.0.0.1 client1.com
+127.0.0.1 client2.com
+```
