@@ -1,6 +1,7 @@
 package com.aiz.gulimall.ware.service;
 
 import com.aiz.gulimall.ware.vo.SkuHasStockVo;
+import com.aiz.gulimall.ware.vo.WareSkuLockVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.aiz.common.utils.PageUtils;
 import com.aiz.gulimall.ware.entity.WareSkuEntity;
@@ -19,9 +20,20 @@ public interface WareSkuService extends IService<WareSkuEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
 
+    /**
+     * 添加库存
+     */
     void addStock(Long skuId, Long wareId, Integer skuNum);
 
+    /**
+     * 判断是否有库存
+     */
     List<SkuHasStockVo> getSkusHasStock(List<Long> skuIds);
+
+    /**
+     * 锁定库存
+     */
+    boolean orderLockStock(WareSkuLockVo vo);
 
 }
 

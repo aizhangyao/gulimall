@@ -36,7 +36,7 @@ public class GuliFeignConfig {
                         template.header("Cookie", cookie);
                     }
                 }
-                System.out.println("feign远程之前先进行RequestInterceptor.apply");
+                // System.out.println("feign远程之前先进行RequestInterceptor.apply");
             }
         };
         return requestInterceptor;

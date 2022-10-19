@@ -1,6 +1,8 @@
 package com.aiz.gulimall.order.service;
 
 import com.aiz.gulimall.order.vo.OrderConfirmVo;
+import com.aiz.gulimall.order.vo.OrderSubmitVo;
+import com.aiz.gulimall.order.vo.SubmitOrderResponseVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.aiz.common.utils.PageUtils;
 import com.aiz.gulimall.order.entity.OrderEntity;
@@ -23,5 +25,10 @@ public interface OrderService extends IService<OrderEntity> {
      * 订单确认页返回需要用的数据
      */
     OrderConfirmVo confirmOrder() throws ExecutionException, InterruptedException;
+
+    /**
+     * 创建订单
+     */
+    SubmitOrderResponseVo submitOrder(OrderSubmitVo vo);
 }
 
