@@ -97,7 +97,11 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         return new PageUtils(page);
     }
 
-    // TODO 高级部分完善
+    /**
+     * // TODO 高级部分完善
+     * @GlobalTransactional
+     */
+    //Seata AT 分布式事务 -- 后台管理系统场景适合
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void saveSpuInfo(SpuSaveVo vo) {
