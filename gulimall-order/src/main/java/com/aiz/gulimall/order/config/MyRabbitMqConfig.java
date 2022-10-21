@@ -1,12 +1,17 @@
 package com.aiz.gulimall.order.config;
 
+import com.aiz.gulimall.order.entity.OrderEntity;
+import com.rabbitmq.client.Channel;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.Exchange;
+import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 /**
@@ -18,6 +23,12 @@ import java.util.HashMap;
  */
 @Configuration
 public class MyRabbitMqConfig {
+
+    @RabbitListener(queues = "order.release.order.queue")
+    public void listener(OrderEntity order, Channel channel, Message message) throws IOException {
+        System.out.println("收到过期的订单信息，准备关闭订单：" + order.getOrderSn());
+        channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+    }
 
     /**
      * 死信队列
