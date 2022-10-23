@@ -1,6 +1,7 @@
 package com.aiz.gulimall.ware.service.impl;
 
 import com.aiz.common.exception.NoStockException;
+import com.aiz.common.to.OrderTo;
 import com.aiz.common.to.mq.StockDetailTo;
 import com.aiz.common.to.mq.StockLockedTo;
 import com.aiz.common.utils.R;
@@ -261,6 +262,31 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
             }
         } else {
             //无需解锁
+        }
+    }
+
+    /**
+     * 防止订单服务卡顿，导致订单状态消息一直改不了，库存优先到期，查订单状态新建，什么都不处理
+     * 导致卡顿的订单，永远都不能解锁库存
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void unlockStock(OrderTo orderTo) {
+
+        String orderSn = orderTo.getOrderSn();
+        //查一下最新的库存解锁状态，防止重复解锁库存
+        WareOrderTaskEntity orderTaskEntity = wareOrderTaskService.getOrderTaskByOrderSn(orderSn);
+
+        //按照工作单的id找到所有 没有解锁的库存，进行解锁
+        Long id = orderTaskEntity.getId();
+        List<WareOrderTaskDetailEntity> list = wareOrderTaskDetailService.list(new QueryWrapper<WareOrderTaskDetailEntity>()
+                .eq("task_id", id).eq("lock_status", 1));
+
+        for (WareOrderTaskDetailEntity taskDetailEntity : list) {
+            unLockStock(taskDetailEntity.getSkuId(),
+                    taskDetailEntity.getWareId(),
+                    taskDetailEntity.getSkuNum(),
+                    taskDetailEntity.getId());
         }
     }
 

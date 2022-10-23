@@ -1,5 +1,6 @@
 package com.aiz.gulimall.ware.service;
 
+import com.aiz.common.to.OrderTo;
 import com.aiz.common.to.mq.StockLockedTo;
 import com.aiz.gulimall.ware.vo.SkuHasStockVo;
 import com.aiz.gulimall.ware.vo.WareSkuLockVo;
@@ -41,5 +42,9 @@ public interface WareSkuService extends IService<WareSkuEntity> {
      */
     void unlockStock(StockLockedTo to);
 
+    /**
+     * 解锁订单
+     */
+    void unlockStock(OrderTo orderTo);
 }
 
