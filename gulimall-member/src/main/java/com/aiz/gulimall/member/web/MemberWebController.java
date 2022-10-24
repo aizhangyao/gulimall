@@ -29,6 +29,9 @@ public class MemberWebController {
     @GetMapping(value = "/memberOrder.html")
     public String memberOrderPage(@RequestParam(value = "pageNum", required = false, defaultValue = "0") Integer pageNum,
                                   Model model, HttpServletRequest request) {
+        //获取到支付宝给我们转来的所有请求数据
+        //request,验证签名
+
         //查出当前登录用户的所有订单列表数据
         Map<String, Object> page = new HashMap<>();
         page.put("page", pageNum.toString());

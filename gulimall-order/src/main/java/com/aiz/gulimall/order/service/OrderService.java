@@ -2,6 +2,7 @@ package com.aiz.gulimall.order.service;
 
 import com.aiz.gulimall.order.vo.OrderConfirmVo;
 import com.aiz.gulimall.order.vo.OrderSubmitVo;
+import com.aiz.gulimall.order.vo.PayAsyncVo;
 import com.aiz.gulimall.order.vo.PayVo;
 import com.aiz.gulimall.order.vo.SubmitOrderResponseVo;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -51,5 +52,10 @@ public interface OrderService extends IService<OrderEntity> {
      * 查询当前用户所有订单数据
      */
     PageUtils queryPageWithItem(Map<String, Object> params);
+
+    /**
+     *支付宝异步通知处理订单数据
+     */
+    String handlePayResult(PayAsyncVo asyncVo);
 }
 

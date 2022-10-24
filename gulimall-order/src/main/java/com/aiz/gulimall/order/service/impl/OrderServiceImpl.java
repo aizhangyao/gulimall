@@ -4,7 +4,9 @@ import com.aiz.common.exception.NoStockException;
 import com.aiz.common.to.OrderTo;
 import com.aiz.common.utils.R;
 import com.aiz.common.vo.MemberResponseVo;
+import com.aiz.gulimall.order.constant.PayConstant;
 import com.aiz.gulimall.order.entity.OrderItemEntity;
+import com.aiz.gulimall.order.entity.PaymentInfoEntity;
 import com.aiz.gulimall.order.enume.OrderStatusEnum;
 import com.aiz.gulimall.order.feign.CartFeignService;
 import com.aiz.gulimall.order.feign.MemberFeignService;
@@ -12,6 +14,7 @@ import com.aiz.gulimall.order.feign.ProductFeignService;
 import com.aiz.gulimall.order.feign.WmsFeignService;
 import com.aiz.gulimall.order.interceptor.LoginUserInterceptor;
 import com.aiz.gulimall.order.service.OrderItemService;
+import com.aiz.gulimall.order.service.PaymentInfoService;
 import com.aiz.gulimall.order.to.OrderCreateTo;
 import com.aiz.gulimall.order.to.SpuInfoVo;
 import com.aiz.gulimall.order.vo.FareVo;
@@ -19,6 +22,7 @@ import com.aiz.gulimall.order.vo.MemberAddressVo;
 import com.aiz.gulimall.order.vo.OrderConfirmVo;
 import com.aiz.gulimall.order.vo.OrderItemVo;
 import com.aiz.gulimall.order.vo.OrderSubmitVo;
+import com.aiz.gulimall.order.vo.PayAsyncVo;
 import com.aiz.gulimall.order.vo.PayVo;
 import com.aiz.gulimall.order.vo.SkuStockVo;
 import com.aiz.gulimall.order.vo.SubmitOrderResponseVo;
@@ -93,6 +97,9 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
 
     @Autowired
     private OrderItemService orderItemService;
+
+    @Autowired
+    private PaymentInfoService paymentInfoService;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -564,6 +571,42 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
         orderItemEntity.setRealAmount(subtract);
 
         return orderItemEntity;
+    }
+
+    /**
+     * 处理支付宝的支付结果
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public String handlePayResult(PayAsyncVo asyncVo) {
+        //保存交易流水信息
+        PaymentInfoEntity paymentInfo = new PaymentInfoEntity();
+        paymentInfo.setOrderSn(asyncVo.getOut_trade_no());
+        paymentInfo.setAlipayTradeNo(asyncVo.getTrade_no());
+        paymentInfo.setTotalAmount(new BigDecimal(asyncVo.getBuyer_pay_amount()));
+        paymentInfo.setSubject(asyncVo.getBody());
+        paymentInfo.setPaymentStatus(asyncVo.getTrade_status());
+        paymentInfo.setCreateTime(new Date());
+        paymentInfo.setCallbackTime(asyncVo.getNotify_time());
+        //添加到数据库中
+        this.paymentInfoService.save(paymentInfo);
+
+        //修改订单状态
+        //获取当前状态
+        String tradeStatus = asyncVo.getTrade_status();
+        if (tradeStatus.equals("TRADE_SUCCESS") || tradeStatus.equals("TRADE_FINISHED")) {
+            //支付成功状态
+            String orderSn = asyncVo.getOut_trade_no(); //获取订单号
+            this.updateOrderStatus(orderSn, OrderStatusEnum.PAYED.getCode(), PayConstant.ALIPAY);
+        }
+        return "success";
+    }
+
+    /**
+     * 修改订单状态
+     */
+    private void updateOrderStatus(String orderSn, Integer code, Integer payType) {
+        this.baseMapper.updateOrderStatus(orderSn, code, payType);
     }
 
 }
