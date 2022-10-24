@@ -73,6 +73,7 @@ host配置
 127.0.0.1 auth.gulimall.com
 127.0.0.1 cart.gulimall.com
 127.0.0.1 order.gulimall.com
+127.0.0.1 member.gulimall.com
 
 127.0.0.1 ssoserver.com
 127.0.0.1 client1.com
