@@ -20,7 +20,9 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -148,4 +150,86 @@ public class SeckillServiceImpl implements SeckillService {
         });
     }
 
+
+    /**
+     * 获取到当前可以参加秒杀商品的信息
+     */
+    @Override
+    public List<SeckillSkuRedisTo> getCurrentSeckillSkus() {
+
+        //1、确定当前属于哪个秒杀场次
+        long currentTime = System.currentTimeMillis();
+
+        //从Redis中查询到所有key以seckill:sessions开头的所有数据
+        Set<String> keys = redisTemplate.keys(SESSION_CACHE_PREFIX + "*");
+        for (String key : keys) {
+            //seckill:sessions:1666666800000_1666756800000
+            String replace = key.replace(SESSION_CACHE_PREFIX, "");
+            String[] s = replace.split("_");
+            //获取存入Redis商品的开始时间
+            long startTime = Long.parseLong(s[0]);
+            //获取存入Redis商品的结束时间
+            long endTime = Long.parseLong(s[1]);
+
+            //判断是否是当前秒杀场次
+            if (currentTime >= startTime && currentTime <= endTime) {
+                //2、获取这个秒杀场次需要的所有商品信息
+                List<String> range = redisTemplate.opsForList().range(key, -100, 100);
+                BoundHashOperations<String, String, String> hasOps = redisTemplate.boundHashOps(SECKILL_CHARE_PREFIX);
+                assert range != null;
+                List<String> listValue = hasOps.multiGet(range);
+                if (listValue != null && listValue.size() >= 0) {
+
+                    List<SeckillSkuRedisTo> collect = listValue.stream().map(item -> {
+                        String items = (String) item;
+                        SeckillSkuRedisTo redisTo = JSON.parseObject(items, SeckillSkuRedisTo.class);
+                        // redisTo.setRandomCode(null);当前秒杀开始需要随机码
+                        return redisTo;
+                    }).collect(Collectors.toList());
+                    return collect;
+                }
+                break;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public SeckillSkuRedisTo getSkuSeckilInfo(Long skuId) {
+        //1、找到所有需要秒杀的商品的key信息---seckill:skus
+        BoundHashOperations<String, String, String> hashOps = redisTemplate.boundHashOps(SECKILL_CHARE_PREFIX);
+
+        //拿到所有的key
+        Set<String> keys = hashOps.keys();
+        if (keys != null && keys.size() > 0) {
+            //4-45 正则表达式进行匹配
+            String reg = "\\d-" + skuId;
+            for (String key : keys) {
+                //如果匹配上了
+                if (Pattern.matches(reg, key)) {
+                    //从Redis中取出数据来
+                    String redisValue = hashOps.get(key);
+                    //进行序列化
+                    SeckillSkuRedisTo redisTo = JSON.parseObject(redisValue, SeckillSkuRedisTo.class);
+
+                    //随机码
+                    Long currentTime = System.currentTimeMillis();
+                    Long startTime = redisTo.getStartTime();
+                    Long endTime = redisTo.getEndTime();
+                    //如果当前时间大于等于秒杀活动开始时间并且要小于活动结束时间
+                    if (currentTime >= startTime && currentTime <= endTime) {
+                        return redisTo;
+                    }
+                    redisTo.setRandomCode(null);
+                    return redisTo;
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public String kill(String killId, String key, Integer num) throws InterruptedException {
+        return null;
+    }
 }

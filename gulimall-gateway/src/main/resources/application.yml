@@ -98,6 +98,10 @@ spring:
           predicates:
             - Host=order.gulimall.com
 
+        - id: gulimall_seckill_route
+          uri: lb://gulimall-seckill
+          predicates:
+            - Host=seckill.gulimall.com
 ## lb:负载均衡 load balancing
 ## 前端項目, /api
 ## http://localhost:88/api/captcha.jpg  http://localhost:8080/renren-fast/captcha.jpg
