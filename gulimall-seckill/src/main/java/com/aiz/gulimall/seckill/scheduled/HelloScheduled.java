@@ -30,8 +30,8 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 @Component
-@EnableAsync
-@EnableScheduling
+//@EnableAsync
+//@EnableScheduling
 public class HelloScheduled {
     /**
      * 1、在Spring中表达式是6位组成，不允许第七位的年份
@@ -46,8 +46,8 @@ public class HelloScheduled {
      *          异步任务
      *      解决：使用异步任务 + 定时任务来完成定时任务不阻塞的功能
      */
-    @Async
-    @Scheduled(cron = "0/5 * * * * ?")
+//    @Async
+//    @Scheduled(cron = "0/5 * * * * ?")
     public void hello() {
         log.info("hello scheduled...");
         try {
