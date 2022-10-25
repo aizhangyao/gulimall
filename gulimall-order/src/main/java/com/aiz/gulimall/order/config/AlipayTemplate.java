@@ -50,7 +50,7 @@ public class AlipayTemplate {
     // 支付宝网关； https://openapi.alipaydev.com/gateway.do
     public String gatewayUrl;
 
-    public  String pay(PayVo vo) throws AlipayApiException {
+    public String pay(PayVo vo) throws AlipayApiException {
 
         //AlipayClient alipayClient = new DefaultAlipayClient(AlipayTemplate.gatewayUrl, AlipayTemplate.app_id, AlipayTemplate.merchant_private_key, "json", AlipayTemplate.charset, AlipayTemplate.alipay_public_key, AlipayTemplate.sign_type);
         //1、根据支付宝的配置生成一个支付客户端
@@ -72,19 +72,18 @@ public class AlipayTemplate {
         //商品描述，可空
         String body = vo.getBody();
 
-        alipayRequest.setBizContent("{\"out_trade_no\":\""+ out_trade_no +"\","
-                + "\"total_amount\":\""+ total_amount +"\","
-                + "\"subject\":\""+ subject +"\","
-                + "\"body\":\""+ body +"\","
+        alipayRequest.setBizContent("{\"out_trade_no\":\"" + out_trade_no + "\","
+                + "\"total_amount\":\"" + total_amount + "\","
+                + "\"subject\":\"" + subject + "\","
+                + "\"body\":\"" + body + "\","
                 + "\"timeout_express\":\"" + timeout + "\","
                 + "\"product_code\":\"FAST_INSTANT_TRADE_PAY\"}");
 
         String result = alipayClient.pageExecute(alipayRequest).getBody();
 
         //会收到支付宝的响应，响应的是一个页面，只要浏览器显示这个页面，就会自动来到支付宝的收银台页面
-        System.out.println("支付宝的响应："+result);
+        System.out.println("支付宝的响应：" + result);
 
         return result;
-
     }
 }
