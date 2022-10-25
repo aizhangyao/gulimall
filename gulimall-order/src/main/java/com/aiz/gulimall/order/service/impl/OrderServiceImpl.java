@@ -2,6 +2,7 @@ package com.aiz.gulimall.order.service.impl;
 
 import com.aiz.common.exception.NoStockException;
 import com.aiz.common.to.OrderTo;
+import com.aiz.common.to.SeckillOrderTo;
 import com.aiz.common.utils.R;
 import com.aiz.common.vo.MemberResponseVo;
 import com.aiz.gulimall.order.constant.PayConstant;
@@ -607,6 +608,51 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
      */
     private void updateOrderStatus(String orderSn, Integer code, Integer payType) {
         this.baseMapper.updateOrderStatus(orderSn, code, payType);
+    }
+
+
+    /**
+     * 创建秒杀单
+     * @param orderTo
+     */
+    @Override
+    public void createSeckillOrder(SeckillOrderTo orderTo) {
+
+        //TODO 保存订单信息
+        OrderEntity orderEntity = new OrderEntity();
+        orderEntity.setOrderSn(orderTo.getOrderSn());
+        orderEntity.setMemberId(orderTo.getMemberId());
+        orderEntity.setCreateTime(new Date());
+        BigDecimal totalPrice = orderTo.getSeckillPrice().multiply(BigDecimal.valueOf(orderTo.getNum()));
+        orderEntity.setPayAmount(totalPrice);
+        orderEntity.setStatus(OrderStatusEnum.CREATE_NEW.getCode());
+
+        //保存订单
+        this.save(orderEntity);
+
+        //保存订单项信息
+        OrderItemEntity orderItem = new OrderItemEntity();
+        orderItem.setOrderSn(orderTo.getOrderSn());
+        orderItem.setRealAmount(totalPrice);
+
+        orderItem.setSkuQuantity(orderTo.getNum());
+
+        //保存商品的spu信息
+        R spuInfo = productFeignService.getSpuInfoBySkuId(orderTo.getSkuId());
+        SpuInfoVo spuInfoData = (SpuInfoVo) spuInfo.getData("data", new TypeReference<SpuInfoVo>() {
+        });
+        orderItem.setSpuId(spuInfoData.getId());
+        orderItem.setSpuName(spuInfoData.getSpuName());
+        orderItem.setSpuBrand(spuInfoData.getBrandName());
+        orderItem.setCategoryId(spuInfoData.getCatalogId());
+
+        //保存订单项数据
+        orderItemService.save(orderItem);
+    }
+
+    public static void main(String[] args) {
+        String orderSn = IdWorker.getTimeId().substring(0,16);
+        System.out.println(orderSn);
     }
 
 }

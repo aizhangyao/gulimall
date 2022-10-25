@@ -1,5 +1,6 @@
 package com.aiz.gulimall.order.service;
 
+import com.aiz.common.to.SeckillOrderTo;
 import com.aiz.gulimall.order.vo.OrderConfirmVo;
 import com.aiz.gulimall.order.vo.OrderSubmitVo;
 import com.aiz.gulimall.order.vo.PayAsyncVo;
@@ -57,5 +58,10 @@ public interface OrderService extends IService<OrderEntity> {
      *支付宝异步通知处理订单数据
      */
     String handlePayResult(PayAsyncVo asyncVo);
+
+    /**
+     * 创建秒杀单
+     */
+    void createSeckillOrder(SeckillOrderTo orderTo);
 }
 

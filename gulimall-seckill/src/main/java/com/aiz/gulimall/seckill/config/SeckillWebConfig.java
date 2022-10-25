@@ -7,14 +7,14 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * @ClassName OrderWebConfig
+ * @ClassName SeckillWebConfig
  * @Description TODO
  * @Author ZhangYao
  * @Date Create in 23:36 2022/10/16
  * @Version 1.0
  */
 @Configuration
-public class OrderWebConfig implements WebMvcConfigurer {
+public class SeckillWebConfig implements WebMvcConfigurer {
 
     @Autowired
     private LoginUserInterceptor loginUserInterceptor;
