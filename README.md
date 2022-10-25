@@ -53,6 +53,7 @@
 | gulimall-ware            | 11001 |
 | gulimall-search          | 12001 |
 | gulimall-auth-server     | 20000 |
+| gulimall-seckill         | 25001 |
 | gulimall-third-party     | 30001 |
 | gulimall-cart            | 31000 |
 | ...                      | ...   |
@@ -74,6 +75,7 @@ host配置
 127.0.0.1 cart.gulimall.com
 127.0.0.1 order.gulimall.com
 127.0.0.1 member.gulimall.com
+127.0.0.1 seckill.gulimall.com
 
 127.0.0.1 ssoserver.com
 127.0.0.1 client1.com
