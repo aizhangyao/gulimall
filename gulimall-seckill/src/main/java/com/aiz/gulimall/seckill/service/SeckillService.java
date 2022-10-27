@@ -22,7 +22,7 @@ public interface SeckillService {
     /**
      * 根据skuId查询商品是否参加秒杀活动
      */
-    SeckillSkuRedisTo getSkuSeckilInfo(Long skuId);
+    SeckillSkuRedisTo getSkuSeckillInfo(Long skuId);
 
     /**
      * 当前商品进行秒杀（秒杀开始）

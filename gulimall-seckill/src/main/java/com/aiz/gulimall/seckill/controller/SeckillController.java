@@ -45,10 +45,14 @@ public class SeckillController {
      */
     @GetMapping(value = "/sku/seckill/{skuId}")
     @ResponseBody
-    public R getSkuSeckilInfo(@PathVariable("skuId") Long skuId) {
+    public R getSkuSeckillInfo(@PathVariable("skuId") Long skuId) {
 
-        SeckillSkuRedisTo to = seckillService.getSkuSeckilInfo(skuId);
-
+        try {
+            Thread.sleep(300);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        SeckillSkuRedisTo to = seckillService.getSkuSeckillInfo(skuId);
         return R.ok().setData(to);
     }
 

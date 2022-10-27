@@ -201,7 +201,7 @@ public class SeckillServiceImpl implements SeckillService {
     }
 
     @Override
-    public SeckillSkuRedisTo getSkuSeckilInfo(Long skuId) {
+    public SeckillSkuRedisTo getSkuSeckillInfo(Long skuId) {
         //1、找到所有需要秒杀的商品的key信息---seckill:skus
         BoundHashOperations<String, String, String> hashOps = redisTemplate.boundHashOps(SECKILL_CHARE_PREFIX);
 
