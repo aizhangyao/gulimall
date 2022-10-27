@@ -102,6 +102,14 @@ spring:
           uri: lb://gulimall-seckill
           predicates:
             - Host=seckill.gulimall.com
+
+#暴露所有端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
 ## lb:负载均衡 load balancing
 ## 前端項目, /api
 ## http://localhost:88/api/captcha.jpg  http://localhost:8080/renren-fast/captcha.jpg
