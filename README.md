@@ -14,6 +14,7 @@
 | [本地-谷粒商城-首页](http://gulimall.com/)                             |
 | [本地-谷粒商城-搜索页](http://search.gulimall.com/)                     |
 | [本地-RabbitMQ](http://127.0.0.1:15672/)                         |
+| [本地-sentinel-dashboard](http://localhost:8858/#/login)         |
 
 # 用户端页面地址
 
