@@ -25,13 +25,15 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
  *      提供方是在运行，但是不允许自己的业务逻辑，返回的是默认的降级数据（限流的数据）
  *
  * 5、自定义受保护的资源
- *  1）、代码
+ *  1)、代码
  *          try (Entry entry = SphU.entry("seckillSkus")) {
  *              //业务逻辑
  *          } catch(Exception e) {}
- *
- *  2）、基于注解
- *
+ *  2)、基于注解
+ *      @SentinelResource(value = "getCurrentSeckillSkusResource", blockHandler = "blockHandler")
+ *      fallback
+ *      无论是1还是2方式一定要诶在被限流以后的默认返回
+ *      url请求可以设置统一返回
  */
 @EnableRabbit
 @EnableRedisHttpSession
