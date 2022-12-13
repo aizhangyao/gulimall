@@ -55,4 +55,29 @@
         WHERE order_sn = #{orderSn}
     </update>
 
+    <resultMap type="com.aiz.gulimall.order.entity.OrderEntity" id="orderMap1">
+        <result property="id" column="id"/>
+        <result property="orderSn" column="order_sn"/>
+
+        <collection property="orderItemEntityList" ofType="com.aiz.gulimall.order.entity.OrderItemEntity">
+            <!--            <result property="id" column="id"/>-->
+            <!--            <result property="orderId" column="order_id"/>-->
+            <!--            <result property="orderSn" column="order_sn"/>-->
+            <result property="spuId" column="spu_id"/>
+            <!--            <result property="spuName" column="spu_name"/>-->
+            <!--            <result property="spuBrand" column="spu_brand"/>-->
+            <!--            <result property="categoryId" column="category_id"/>-->
+            <!--            <result property="skuId" column="sku_id"/>-->
+            <!--            <result property="skuName" column="sku_name"/>-->
+        </collection>
+    </resultMap>
+
+    <select id="getOrderDetail" resultMap="orderMap1">
+        select o.* , oi.*
+        from oms_order o,
+             oms_order_item oi
+        where o.order_sn = oi.order_sn
+    </select>
+
+
 </mapper>

@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 /**
@@ -20,6 +21,7 @@ import lombok.Data;
  */
 @Data
 @TableName("oms_order")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrderEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 

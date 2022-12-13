@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * 订单
  * 
@@ -21,4 +23,6 @@ public interface OrderDao extends BaseMapper<OrderEntity> {
     void updateOrderStatus(@Param("orderSn") String orderSn,
                            @Param("code") Integer code,
                            @Param("payType") Integer payType);
+
+    List<OrderEntity> getOrderDetail();
 }
